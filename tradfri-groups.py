@@ -51,17 +51,18 @@ def main():
     conf.read('tradfri.cfg')
 
     hubip = conf.get('tradfri', 'hubip')
+    userid = conf.get('tradfri', 'userid')
     securityid = conf.get('tradfri', 'securityid')
 
     if args.action == 'power':
         if args.value == 'on' or args.value == 'off':
-            tradfriActions.tradfri_power_group(hubip, securityid, args.groupid, args.value)
+            tradfriActions.tradfri_power_group(hubip, userid, securityid, args.groupid, args.value)
         else:
             sys.stderr.write('[-] Tradfri: power state can only be on/off\n')
             sys.exit(1)
     elif args.action == 'brightness':
         if 0 <= int(args.value) <= 100:
-            tradfriActions.tradfri_dim_group(hubip, securityid, args.groupid, args.value)
+            tradfriActions.tradfri_dim_group(hubip, userid, securityid, args.groupid, args.value)
         else:
             sys.stderr.write('[-] Tradfri: dim value can only be between 1 and 100\n')
             sys.exit(1)
